@@ -1,6 +1,6 @@
 {
   "name": "solar-orionjs",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Solarwinds Orion nodejs module",
   "main": "index.js",
   "scripts": {
@@ -13,9 +13,9 @@
     "nodejs",
     "javascript"
   ],
-  "repository" :
-  { "type" : "git"
-  , "url" : "https://github.com/danofa/solar-orionjs.git"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/danofa/solar-orionjs.git"
   },
   "author": "Dion Mitchell <danofar@gmail.com>",
   "license": "Apache-2.0",
