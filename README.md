@@ -52,7 +52,7 @@ Class definition
 
 **Kind**: global function  
 **Example**  
-```
+```js
 var orion = require("solar-orionjs")({
      server: "127.0.0.1",
      port: 17778,
