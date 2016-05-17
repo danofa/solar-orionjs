@@ -48,23 +48,24 @@ var defaultOptions = {
 /********************************* */
 
 /**
- * remove Orion object
- * @param {String} swisUri - 
+ * Performs a SWQL query 
+ * @param {Object} query - JSON Query object in form of {query:"<query>"} 
  * @param {Function} callback - callback function on return
+ * @example
+ * orion.query({query:"SELECT NodeID, URI from Orion.Nodes"}, 
+ *      function (result){
+ *          console.log(result);
+ *      });
+ * 
+ * // Also with the parameter syntax:
+ * 
+ * orion.query({query:"SELECT NodeID, URI from Orion.Nodes WHERE NodeID = @id", param:{id:5}}, 
+ *      function (result){
+ *          console.log(result);
+ *      }); 
  */
-function remove(swisUri, callback) {
-    request.del(_gfa(this.options).fa + swisUri, _cspr(this.options, {}), (err, res, body) => {
-        _parseRequestResults(err, res, body, callback);
-    });
-}
-
-/**
- * Bulk remove Orion objects
- * @param {String[]} swisUris - an array of swisUris strings representing objects to be deleted
- * @param {Function} callback - callback function on return
- */
-function removeBulk(swisUris, callback) {
-    request.post(_gfa(this.options).bd, _cspr(this.options, { uris: swisUris }), (err, res, body) => {
+function query(query, callback) {
+    request.post(_gfa(this.options).q, _cspr(this.options, query), (err, res, body) => {
         _parseRequestResults(err, res, body, callback);
     });
 }
@@ -100,29 +101,6 @@ function create(data, object, callback) {
 }
 
 /**
- * Performs a SWQL query 
- * @param {Object} query - JSON Query object in form of {query:"<query>"} 
- * @param {Function} callback - callback function on return
- * @example
- * orion.query({query:"SELECT NodeID, URI from Orion.Nodes"}, 
- *      function (result){
- *          console.log(result);
- *      });
- * 
- * // Also with the parameter syntax:
- * 
- * orion.query({query:"SELECT NodeID, URI from Orion.Nodes WHERE NodeID = @id", param:{id:5}}, 
- *      function (result){
- *          console.log(result);
- *      }); 
- */
-function query(query, callback) {
-    request.post(_gfa(this.options).q, _cspr(this.options, query), (err, res, body) => {
-        _parseRequestResults(err, res, body, callback);
-    });
-}
-
-/**
  * Performs an Orion verb invoke 
  * @param {String} verb - Verb to invoke, eg Orion.Nodes/Unmanage
  * @param {Array} data - An array of the data to be passed to Verb 
@@ -140,6 +118,28 @@ function query(query, callback) {
 function invoke(verb, data, callback) {
     request.post(_gfa(this.options).i + verb, _cspr(this.options, data), (err, res, body) => {
          _parseRequestResults(err, res, body, callback);
+    });
+}
+
+/**
+ * remove Orion object
+ * @param {String} swisUri - 
+ * @param {Function} callback - callback function on return
+ */
+function remove(swisUri, callback) {
+    request.del(_gfa(this.options).fa + swisUri, _cspr(this.options, {}), (err, res, body) => {
+        _parseRequestResults(err, res, body, callback);
+    });
+}
+
+/**
+ * Bulk remove Orion objects
+ * @param {String[]} swisUris - an array of swisUris strings representing objects to be deleted
+ * @param {Function} callback - callback function on return
+ */
+function removeBulk(swisUris, callback) {
+    request.post(_gfa(this.options).bd, _cspr(this.options, { uris: swisUris }), (err, res, body) => {
+        _parseRequestResults(err, res, body, callback);
     });
 }
 
