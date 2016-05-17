@@ -31,12 +31,13 @@ Orion.prototype.removeBulk = removeBulk;
 Orion.prototype.invoke = invoke;
 Orion.prototype.update = update;
 Orion.prototype.create = create;
+
+// module specific functions
 Orion.prototype.getOptions = getOptions;
 Orion.prototype.setOptions = setOptions;
-Orion.prototype.Boom = Boom;
 
 var defaultOptions = {
-    server: "192.168.137.2",
+    server: "127.0.0.1",
     port: 17778,
     auth: {
         username: "admin",
@@ -73,6 +74,12 @@ function removeBulk(swisUris, callback) {
  * @param {Object} update - JSON object of update
  * @param {String} swisUri - the swis URI of the object to be updated
  * @param {Function} callback - callback function on return
+ * @example
+ * orion.update({Caption:"new node caption"}, 
+ *      "swis://hostname/Orion/Orion.Nodes/NodeID=1", 
+ *      function (result){
+ *          console.log(result);
+ *      });
  */
 function update(update, swisUri, callback) {
     request.post(_gfa(this.options).fa + swisUri, _cspr(this.options, update), (err, res, body) => {
@@ -96,6 +103,18 @@ function create(data, object, callback) {
  * Performs a SWQL query 
  * @param {Object} query - JSON Query object in form of {query:"<query>"} 
  * @param {Function} callback - callback function on return
+ * @example
+ * orion.query({query:"SELECT NodeID, URI from Orion.Nodes"}, 
+ *      function (result){
+ *          console.log(result);
+ *      });
+ * 
+ * // Also with the parameter syntax:
+ * 
+ * orion.query({query:"SELECT NodeID, URI from Orion.Nodes WHERE NodeID = @id", param:{id:5}}, 
+ *      function (result){
+ *          console.log(result);
+ *      }); 
  */
 function query(query, callback) {
     request.post(_gfa(this.options).q, _cspr(this.options, query), (err, res, body) => {
@@ -106,23 +125,21 @@ function query(query, callback) {
 /**
  * Performs an Orion verb invoke 
  * @param {String} verb - Verb to invoke, eg Orion.Nodes/Unmanage
- * @param {Object} data - Data to be passed to Verb 
+ * @param {Array} data - An array of the data to be passed to Verb 
  * @param {Function} callback - callback function on return
+ * @example
+ * var now = new Date();
+ * var later = new Date();
+ * later.setHours(later.getDate() + 3);
+ *
+ * orion.invoke("Orion.Nodes/Unmanage", [ "N:1", now, later, false ], 
+ *    function (result){
+ *        console.log(result);
+ *    });
  */
 function invoke(verb, data, callback) {
     request.post(_gfa(this.options).i + verb, _cspr(this.options, data), (err, res, body) => {
          _parseRequestResults(err, res, body, callback);
-         /*
-        if (!err && res.statusCode == 200 && body) {
-            callback({ results: body, status: res.statusCode });
-        } else {
-            callback({
-                err: (err != undefined ? err : body),
-                status: (res != undefined ? (res.statusCode + "," + res.statusMessage) : "none"),
-                results: undefined
-            });
-        }
-        */
     });
 }
 

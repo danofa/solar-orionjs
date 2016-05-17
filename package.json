@@ -1,7 +1,7 @@
 {
   "name": "solar-orionjs",
   "version": "0.0.1",
-  "description": "Solarwinds Orion javascript library",
+  "description": "Solarwinds Orion nodejs module",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -13,8 +13,12 @@
     "nodejs",
     "javascript"
   ],
+  "repository" :
+  { "type" : "git"
+  , "url" : "https://github.com/danofa/solar-orionjs.git"
+  },
   "author": "Dion Mitchell <danofar@gmail.com>",
-  "license": "ISC",
+  "license": "Apache-2.0",
   "dependencies": {
     "request": "^2.70.0"
   }

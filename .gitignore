@@ -34,3 +34,5 @@ node_modules
 
 # jsdoc out
 out
+
+test
