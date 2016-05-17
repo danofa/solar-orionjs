@@ -11,6 +11,15 @@ function init(options){
 
 /**
  * Class definition
+ * @example
+ * var orion = require("solar-orionjs")({
+ *      server: "127.0.0.1",
+ *      port: 17778,
+ *      auth: {
+ *          username: "admin",
+ *          password: "password"
+ *      }
+ * });
  */
 var Orion = function (options) {
     this.options = options !== undefined ? options : defaultOptions;
@@ -50,7 +59,7 @@ function remove(swisUri, callback) {
 
 /**
  * Bulk remove Orion objects
- * @param {[String]} swisUris - an array of swisUris strings representing objects to be deleted
+ * @param {String[]} swisUris - an array of swisUris strings representing objects to be deleted
  * @param {Function} callback - callback function on return
  */
 function removeBulk(swisUris, callback) {
