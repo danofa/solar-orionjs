@@ -53,7 +53,14 @@ Class definition
 **Kind**: global function  
 **Example**  
 ```js
-var orion = require("solar-orionjs")({     server: "127.0.0.1",     port: 17778,     auth: {         username: "admin",         password: "password"     }});
+var orion = require("solar-orionjs")({
+     server: "127.0.0.1",
+     port: 17778,
+     auth: {
+         username: "admin",
+         password: "password"
+     }
+});
 ```
 <a name="query"></a>
 
@@ -69,7 +76,17 @@ Performs a SWQL query
 
 **Example**  
 ```js
-orion.query({query:"SELECT NodeID, URI from Orion.Nodes"},      function (result){         console.log(result);     });// Also with the parameter syntax:orion.query({query:"SELECT NodeID, URI from Orion.Nodes WHERE NodeID = @id", param:{id:5}},      function (result){         console.log(result);     }); 
+orion.query({query:"SELECT NodeID, URI from Orion.Nodes"}, 
+     function (result){
+         console.log(result);
+     });
+
+// Also with the parameter syntax:
+
+orion.query({query:"SELECT NodeID, URI from Orion.Nodes WHERE NodeID = @id", param:{id:5}}, 
+     function (result){
+         console.log(result);
+     }); 
 ```
 <a name="update"></a>
 
@@ -86,7 +103,11 @@ Update Orion object
 
 **Example**  
 ```js
-orion.update({Caption:"new node caption"},      "swis://hostname/Orion/Orion.Nodes/NodeID=1",      function (result){         console.log(result);     });
+orion.update({Caption:"new node caption"}, 
+     "swis://hostname/Orion/Orion.Nodes/NodeID=1", 
+     function (result){
+         console.log(result);
+     });
 ```
 <a name="create"></a>
 
@@ -116,7 +137,14 @@ Performs an Orion verb invoke
 
 **Example**  
 ```js
-var now = new Date();var later = new Date();later.setHours(later.getDate() + 3);orion.invoke("Orion.Nodes/Unmanage", [ "N:1", now, later, false ],    function (result){       console.log(result);   });
+var now = new Date();
+var later = new Date();
+later.setHours(later.getDate() + 3);
+
+orion.invoke("Orion.Nodes/Unmanage", [ "N:1", now, later, false ], 
+   function (result){
+       console.log(result);
+   });
 ```
 <a name="remove"></a>
 
