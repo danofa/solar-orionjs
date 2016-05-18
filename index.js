@@ -25,12 +25,13 @@ var Orion = function (options) {
     this.options = options !== undefined ? options : defaultOptions;
 }
 
-Orion.prototype.remove = remove;
 Orion.prototype.query = query;
-Orion.prototype.removeBulk = removeBulk;
 Orion.prototype.invoke = invoke;
 Orion.prototype.update = update;
+Orion.prototype.read = read;
 Orion.prototype.create = create;
+Orion.prototype.remove = remove;
+Orion.prototype.removeBulk = removeBulk;
 
 // module specific functions
 Orion.prototype.getOptions = getOptions;
@@ -89,6 +90,22 @@ function update(update, swisUri, callback) {
 }
 
 /**
+ * Read Orion object
+ * @param {String} swisUri - the swis URI of the object to be read
+ * @param {Function} callback - callback function on return
+ * @example
+ * orion.read("swis://hostname/Orion/Orion.Nodes/NodeID=1", 
+ *      function (result){
+ *          console.log(result);
+ *      });
+ */
+function read(swisUri, callback){
+    request.get(_gfa(this.options).fa + swisUri, _cspr(this.options, {}), (err, res, body) => {
+        _parseRequestResults(err, res, body, callback);
+    });
+}
+
+/**
  * Create Orion object
  * @param {Object} data - JSON object of update
  * @param {String} object - the object to be created
@@ -123,7 +140,7 @@ function invoke(verb, data, callback) {
 
 /**
  * remove Orion object
- * @param {String} swisUri - 
+ * @param {String} swisUri - the swisURI of the object to be removed
  * @param {Function} callback - callback function on return
  */
 function remove(swisUri, callback) {
@@ -134,7 +151,7 @@ function remove(swisUri, callback) {
 
 /**
  * Bulk remove Orion objects
- * @param {String[]} swisUris - an array of swisUris strings representing objects to be deleted
+ * @param {String[]} swisUris - an array of swisUris representing objects to be deleted
  * @param {Function} callback - callback function on return
  */
 function removeBulk(swisUris, callback) {
