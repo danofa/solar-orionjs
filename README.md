@@ -12,6 +12,7 @@ var orion = require("solar-orionjs")({
     }   
 });
 ```
+
 ---
 ## Functions
 
