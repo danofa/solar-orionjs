@@ -25,6 +25,9 @@ var orion = require("solar-orionjs")({
 <dt><a href="#update">update(update, swisUri, callback)</a></dt>
 <dd><p>Update Orion object</p>
 </dd>
+<dt><a href="#read">read(swisUri, callback)</a></dt>
+<dd><p>Read Orion object</p>
+</dd>
 <dt><a href="#create">create(data, object, callback)</a></dt>
 <dd><p>Create Orion object</p>
 </dd>
@@ -53,14 +56,7 @@ Class definition
 **Kind**: global function  
 **Example**  
 ```js
-var orion = require("solar-orionjs")({
-     server: "127.0.0.1",
-     port: 17778,
-     auth: {
-         username: "admin",
-         password: "password"
-     }
-});
+var orion = require("solar-orionjs")({     server: "127.0.0.1",     port: 17778,     auth: {         username: "admin",         password: "password"     }});
 ```
 <a name="query"></a>
 
@@ -76,17 +72,7 @@ Performs a SWQL query
 
 **Example**  
 ```js
-orion.query({query:"SELECT NodeID, URI from Orion.Nodes"}, 
-     function (result){
-         console.log(result);
-     });
-
-// Also with the parameter syntax:
-
-orion.query({query:"SELECT NodeID, URI from Orion.Nodes WHERE NodeID = @id", param:{id:5}}, 
-     function (result){
-         console.log(result);
-     }); 
+orion.query({query:"SELECT NodeID, URI from Orion.Nodes"},      function (result){         console.log(result);     });// Also with the parameter syntax:orion.query({query:"SELECT NodeID, URI from Orion.Nodes WHERE NodeID = @id", param:{id:5}},      function (result){         console.log(result);     }); 
 ```
 <a name="update"></a>
 
@@ -103,11 +89,23 @@ Update Orion object
 
 **Example**  
 ```js
-orion.update({Caption:"new node caption"}, 
-     "swis://hostname/Orion/Orion.Nodes/NodeID=1", 
-     function (result){
-         console.log(result);
-     });
+orion.update({Caption:"new node caption"},      "swis://hostname/Orion/Orion.Nodes/NodeID=1",      function (result){         console.log(result);     });
+```
+<a name="read"></a>
+
+## read(swisUri, callback)
+Read Orion object
+
+**Kind**: global function  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| swisUri | <code>String</code> | the swis URI of the object to be read |
+| callback | <code>function</code> | callback function on return |
+
+**Example**  
+```js
+orion.read("swis://hostname/Orion/Orion.Nodes/NodeID=1",      function (result){         console.log(result);     });
 ```
 <a name="create"></a>
 
@@ -137,14 +135,7 @@ Performs an Orion verb invoke
 
 **Example**  
 ```js
-var now = new Date();
-var later = new Date();
-later.setHours(later.getDate() + 3);
-
-orion.invoke("Orion.Nodes/Unmanage", [ "N:1", now, later, false ], 
-   function (result){
-       console.log(result);
-   });
+var now = new Date();var later = new Date();later.setHours(later.getDate() + 3);orion.invoke("Orion.Nodes/Unmanage", [ "N:1", now, later, false ],    function (result){       console.log(result);   });
 ```
 <a name="remove"></a>
 
@@ -155,7 +146,7 @@ remove Orion object
 
 | Param | Type | Description |
 | --- | --- | --- |
-| swisUri | <code>String</code> | - |
+| swisUri | <code>String</code> | the swisURI of the object to be removed |
 | callback | <code>function</code> | callback function on return |
 
 <a name="removeBulk"></a>
@@ -167,7 +158,7 @@ Bulk remove Orion objects
 
 | Param | Type | Description |
 | --- | --- | --- |
-| swisUris | <code>Array.&lt;String&gt;</code> | an array of swisUris strings representing objects to be deleted |
+| swisUris | <code>Array.&lt;String&gt;</code> | an array of swisUris representing objects to be deleted |
 | callback | <code>function</code> | callback function on return |
 
 <a name="getOptions"></a>
