@@ -11,8 +11,7 @@ var orion = require("solar-orionjs")({
         password:""
     }   
 });
-```
-    
+```    
 ---
 ## Functions
 
@@ -162,7 +161,7 @@ Performs an Orion verb invoke
 ```js
 var now = new Date();
 var later = new Date();
-later.setHours(later.getDate() + 3);
+later.setHours(later.getHours() + 3);
 
 orion.invoke("Orion.Nodes/Unmanage", [ "N:1", now, later, false ], 
    function (result){
