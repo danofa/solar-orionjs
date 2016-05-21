@@ -120,7 +120,7 @@ function create(data, object, callback) {
 /**
  * Performs an Orion verb invoke 
  * @param {String} verb - Verb to invoke, eg Orion.Nodes/Unmanage
- * @param {Array} data - An array of the data to be passed to Verb 
+ * @param {any[]} data - An array of the data to be passed to Verb 
  * @param {Function} callback - callback function on return
  * @example
  * var now = new Date();
