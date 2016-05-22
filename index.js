@@ -221,17 +221,17 @@ function _parseRequestResults(err, res, body, callback) {
             results = undefined;
         }
 
-        callback(
-            undefined,  // error object
-            results,    // results        
-            { code: res.statusCode, message: res.statusMessage }  // status code and message
-        );
+        callback({
+            err: undefined,  // error object
+            results: results,    // results        
+            status: { code: res.statusCode, message: res.statusMessage }  // status code and message
+        });
 
     } else {
-        callback(
-            (err != undefined ? err : body),
-            undefined,
-            { code: res.statusCode, message: res.statusMessage }
-        );
+        callback({
+            err: (err != undefined ? err : body),
+            results: undefined,
+            status: { code: res.statusCode, message: res.statusMessage }
+        });
     }
 }
