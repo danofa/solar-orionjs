@@ -1,6 +1,6 @@
 {
   "name": "solar-orionjs",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "Solarwinds Orion nodejs module",
   "main": "index.js",
   "scripts": {
