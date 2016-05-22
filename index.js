@@ -5,8 +5,8 @@ var request = require('request');
 
 module.exports = init;
 
-function init(options){
-    return new Orion(options);    
+function init(options) {
+    return new Orion(options);
 }
 
 /**
@@ -99,7 +99,7 @@ function update(update, swisUri, callback) {
  *          console.log(result);
  *      });
  */
-function read(swisUri, callback){
+function read(swisUri, callback) {
     request.get(_gfa(this.options).fa + swisUri, _cspr(this.options, {}), (err, res, body) => {
         _parseRequestResults(err, res, body, callback);
     });
@@ -134,7 +134,7 @@ function create(data, object, callback) {
  */
 function invoke(verb, data, callback) {
     request.post(_gfa(this.options).i + verb, _cspr(this.options, data), (err, res, body) => {
-         _parseRequestResults(err, res, body, callback);
+        _parseRequestResults(err, res, body, callback);
     });
 }
 
@@ -164,7 +164,7 @@ function removeBulk(swisUris, callback) {
  * Get options
  * @returns {object} options - currently set options
  */
-function getOptions(){
+function getOptions() {
     return this.options;
 }
 
@@ -173,7 +173,7 @@ function getOptions(){
  * Set options
  * @param {object} options - JSON object of options to set
  */
-function setOptions(options){
+function setOptions(options) {
     this.options = options;
 }
 
@@ -208,7 +208,7 @@ function _parseRequestResults(err, res, body, callback) {
 
         var results;
 
-            // Orion.Query returns results in 'Body.Results' so we need to check this first
+        // Orion.Query returns results in 'Body.Results' so we need to check this first
         if (body != undefined && body.results) {
             results = body.results.length == 0 ? null : body.results;
 
@@ -221,16 +221,17 @@ function _parseRequestResults(err, res, body, callback) {
             results = undefined;
         }
 
-        callback({
-            results: results,
-            status: { code: res.statusCode, message: res.statusMessage },
-        });
+        callback(
+            undefined,  // error object
+            results,    // results        
+            { code: res.statusCode, message: res.statusMessage }  // status code and message
+        );
 
     } else {
-        callback({
-            err: (err != undefined ? err : body),
-            status: { code: res.statusCode, message: res.statusMessage },
-            results: undefined
-        });
+        callback(
+            (err != undefined ? err : body),
+            undefined,
+            { code: res.statusCode, message: res.statusMessage }
+        );
     }
 }
