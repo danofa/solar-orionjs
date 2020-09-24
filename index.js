@@ -111,7 +111,7 @@ function read(swisUri, callback) {
  * @param {String} object - the object to be created
  * @param {Function} callback - callback function on return
  */
-function create(data, object, callback) {
+function create(data, orionObject, callback) {
     request.post(_gfa(this.options).c + orionObject, _cspr(this.options, data), (err, res, body) => {
         _parseRequestResults(err, res, body, callback);
     });
